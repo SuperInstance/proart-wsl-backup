@@ -5,14 +5,15 @@ Ubuntu, OpenClaw gateway + agent fleet). Snapshot date: 2026-10-10.
 
 ## 0. Preconditions (do these BEFORE wiping the old WSL)
 
-- Confirm `C:\Users\casey\key.txt` is current on the Windows side (13 keys). It survives
-  the wipe; it is the master store.
-- **Copy the five openclaw.json-only secrets out of the old WSL** (see SECRETS-MAP.md):
-  telegram botToken, gateway.auth.token, google webSearch apiKey, moonshot webSearch
-  apiKey, ollama apiKey. Also grab: `~/.config/i2i/i2i-token`,
+- Confirm `C:\Users\casey\key.txt` is current on the Windows side. It survives the
+  wipe; it is the master store. **As of 2026-10-10 19:4x it also holds the five
+  openclaw.json-only secrets** (OPENCLAW_TELEGRAM_BOT_TOKEN, OPENCLAW_GATEWAY_AUTH_TOKEN,
+  GOOGLE_WEBSEARCH_API_KEY, MOONSHOT_WEBSEARCH_API_KEY, OLLAMA_API_KEY — appended with
+  Casey's approval), so no config rescue from the old WSL is needed for those.
+- Still grab from the old WSL: `~/.config/i2i/i2i-token`,
   `~/.openclaw/credentials/browser-extension-relay.secret`, `~/.ssh/id_ed25519` +
   `wsl-tunnel.key`, and the bashrc CIVITAI/GROQ/ELEVENLABS values. None of these are in
-  this repo by design.
+  this repo or key.txt by design.
 
 ## 1. Base stack
 
@@ -26,9 +27,13 @@ Ubuntu, OpenClaw gateway + agent fleet). Snapshot date: 2026-10-10.
 
 1. Install OpenClaw (npm global, same version family as the old box).
 2. `mkdir -p ~/.openclaw && cp openclaw/openclaw.json.sanitized.json ~/.openclaw/openclaw.json`
-3. Fill the six `REDACTED-BY-BACKUP` fields:
-   - `plugins.entries.minimax.config.webSearch.apiKey` ← key.txt MINIMAX_KEY
-   - the other five ← saved from step 0.
+3. Fill the six `REDACTED-BY-BACKUP` fields — all from key.txt now:
+   - `plugins.entries.minimax.config.webSearch.apiKey` ← `MINIMAX_KEY`
+   - telegram botToken ← `OPENCLAW_TELEGRAM_BOT_TOKEN`
+   - `gateway.auth.token` ← `OPENCLAW_GATEWAY_AUTH_TOKEN`
+   - google webSearch ← `GOOGLE_WEBSEARCH_API_KEY`
+   - moonshot webSearch ← `MOONSHOT_WEBSEARCH_API_KEY`
+   - ollama apiKey ← `OLLAMA_API_KEY`
 4. Recreate working-copy token files:
    - `mkdir -p ~/.config/{deepinfra,typesafe,deepseek,i2i}`
    - key.txt DEEPINFRA_KEY → `~/.config/deepinfra/token` (chmod 600)
