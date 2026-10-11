@@ -17,12 +17,14 @@ Snapshot: 2026-10-10. This file deliberately contains ZERO secret values.
   5. `models.providers.ollama.apiKey`
   The sixth secret field, `plugins.entries.minimax.config.webSearch.apiKey`, equals
   key.txt `MINIMAX_KEY` (recoverable).
-- **UPDATE 2026-10-10 19:4x AKDT (Casey-approved): all five are NOW also in key.txt** —
-  appended as `OPENCLAW_TELEGRAM_BOT_TOKEN`, `OPENCLAW_GATEWAY_AUTH_TOKEN`,
-  `GOOGLE_WEBSEARCH_API_KEY`, `MOONSHOT_WEBSEARCH_API_KEY`, `OLLAMA_API_KEY`.
-  key.txt is now the restore source for all six secret fields; openclaw.json and its
-  .bak copies remain the live locations. Verified: originals intact, values never
-  printed to chat, nothing pushed.
+- **UPDATE 2026-10-10 19:4x AKDT (Casey-approved): four real secrets are NOW in key.txt** —
+  `OPENCLAW_TELEGRAM_BOT_TOKEN`, `OPENCLAW_GATEWAY_AUTH_TOKEN`,
+  `GOOGLE_WEBSEARCH_API_KEY`, `MOONSHOT_WEBSEARCH_API_KEY`. The fifth turned out to be
+  an env-var NAME, not a secret: openclaw.json stores the literal string
+  `OLLAMA_API_KEY` (local Ollama needs no key) — key.txt carries a comment note instead
+  of a value. Restore sources: those four + `MINIMAX_KEY` from key.txt; the ollama
+  field restores by copying its original literal value. Verified: originals intact,
+  values never printed to chat, nothing pushed.
 
 ## Also ONLY on this machine (not in key.txt, not pushed)
 
@@ -43,7 +45,7 @@ Snapshot: 2026-10-10. This file deliberately contains ZERO secret values.
 | `~/.openclaw/openclaw.json` `gateway.auth.token` | `OPENCLAW_GATEWAY_AUTH_TOKEN` (added 10-10) |
 | `~/.openclaw/openclaw.json` google webSearch apiKey | `GOOGLE_WEBSEARCH_API_KEY` (added 10-10) |
 | `~/.openclaw/openclaw.json` moonshot webSearch apiKey | `MOONSHOT_WEBSEARCH_API_KEY` (added 10-10) |
-| `~/.openclaw/openclaw.json` ollama apiKey | `OLLAMA_API_KEY` (added 10-10) |
+| `~/.openclaw/openclaw.json` ollama apiKey | not a key — env-var name; no secret stored |
 | `~/.config/deepinfra/token` | DEEPINFRA_KEY |
 | `~/.config/typesafe/token` | TYPESAFE_AI_KEY |
 | `~/.config/deepseek/token` | DEEPSEEK_KEY |

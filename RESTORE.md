@@ -6,10 +6,11 @@ Ubuntu, OpenClaw gateway + agent fleet). Snapshot date: 2026-10-10.
 ## 0. Preconditions (do these BEFORE wiping the old WSL)
 
 - Confirm `C:\Users\casey\key.txt` is current on the Windows side. It survives the
-  wipe; it is the master store. **As of 2026-10-10 19:4x it also holds the five
+  wipe; it is the master store. **As of 2026-10-10 19:4x it also holds the four real
   openclaw.json-only secrets** (OPENCLAW_TELEGRAM_BOT_TOKEN, OPENCLAW_GATEWAY_AUTH_TOKEN,
-  GOOGLE_WEBSEARCH_API_KEY, MOONSHOT_WEBSEARCH_API_KEY, OLLAMA_API_KEY — appended with
-  Casey's approval), so no config rescue from the old WSL is needed for those.
+  GOOGLE_WEBSEARCH_API_KEY, MOONSHOT_WEBSEARCH_API_KEY — appended with Casey's
+  approval). The fifth field (ollama apiKey) is just the env-var NAME "OLLAMA_API_KEY"
+  in the config — not a secret. No config rescue from the old WSL is needed.
 - Still grab from the old WSL: `~/.config/i2i/i2i-token`,
   `~/.openclaw/credentials/browser-extension-relay.secret`, `~/.ssh/id_ed25519` +
   `wsl-tunnel.key`, and the bashrc CIVITAI/GROQ/ELEVENLABS values. None of these are in
@@ -27,13 +28,14 @@ Ubuntu, OpenClaw gateway + agent fleet). Snapshot date: 2026-10-10.
 
 1. Install OpenClaw (npm global, same version family as the old box).
 2. `mkdir -p ~/.openclaw && cp openclaw/openclaw.json.sanitized.json ~/.openclaw/openclaw.json`
-3. Fill the six `REDACTED-BY-BACKUP` fields — all from key.txt now:
+3. Fill the six `REDACTED-BY-BACKUP` fields — five from key.txt, one literal:
    - `plugins.entries.minimax.config.webSearch.apiKey` ← `MINIMAX_KEY`
    - telegram botToken ← `OPENCLAW_TELEGRAM_BOT_TOKEN`
    - `gateway.auth.token` ← `OPENCLAW_GATEWAY_AUTH_TOKEN`
    - google webSearch ← `GOOGLE_WEBSEARCH_API_KEY`
    - moonshot webSearch ← `MOONSHOT_WEBSEARCH_API_KEY`
-   - ollama apiKey ← `OLLAMA_API_KEY`
+   - ollama apiKey ← copy the original literal value `OLLAMA_API_KEY` (an env-var
+     name, not a secret — the sanitized config already holds it)
 4. Recreate working-copy token files:
    - `mkdir -p ~/.config/{deepinfra,typesafe,deepseek,i2i}`
    - key.txt DEEPINFRA_KEY → `~/.config/deepinfra/token` (chmod 600)

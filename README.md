@@ -23,11 +23,11 @@ step-by-step fresh-WSL rebuild.
 
 ## The one thing to understand before a wipe
 
-Five secrets lived ONLY inside `~/.openclaw/openclaw.json` (telegram bot token,
-gateway auth token, google webSearch key, moonshot webSearch key, ollama key).
-**As of 2026-10-10 19:4x AKDT they are ALSO in key.txt** (Casey-approved append:
+Four secrets lived ONLY inside `~/.openclaw/openclaw.json` (telegram bot token,
+gateway auth token, google webSearch key, moonshot webSearch key). **As of
+2026-10-10 19:4x AKDT they are ALSO in key.txt** (Casey-approved append:
 OPENCLAW_TELEGRAM_BOT_TOKEN, OPENCLAW_GATEWAY_AUTH_TOKEN, GOOGLE_WEBSEARCH_API_KEY,
-MOONSHOT_WEBSEARCH_API_KEY, OLLAMA_API_KEY — all six fields now restore from key.txt).
-Still machine-only, save before wipe: i2i-ledger token, gh CLI oauth token, SSH keys,
-browser-relay secret, and the bashrc CIVITAI/GROQ/ELEVENLABS values — see
-`SECRETS-MAP.md`.
+MOONSHOT_WEBSEARCH_API_KEY). The fifth ("ollama key") turned out to be an env-var
+NAME in the config, not a secret. Still machine-only, save before wipe: i2i-ledger
+token, gh CLI oauth token, SSH keys, browser-relay secret, and the bashrc
+CIVITAI/GROQ/ELEVENLABS values — see `SECRETS-MAP.md`.
